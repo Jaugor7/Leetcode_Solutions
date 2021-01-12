@@ -1,0 +1,44 @@
+https://leetcode.com/problems/min-stack/submissions/
+
+class MinStack {
+    
+    int min;
+    Stack<Integer> stack;
+    Stack<Integer> minElement;
+    /** initialize your data structure here. */
+    public MinStack() {
+        this.stack = new Stack<>();
+        this.minElement = new Stack<>();
+        this.min = Integer.MAX_VALUE;
+        
+    }
+    
+    public void push(int x) {
+        this.stack.push(x);
+        this.min = Math.min(x, this.min);
+        this.minElement.push(this.min);
+    }
+    
+    public void pop() {
+        this.stack.pop();
+        this.minElement.pop();
+        this.min = (!this.minElement.isEmpty()) ? this.minElement.peek() : Integer.MAX_VALUE;
+    }
+    
+    public int top() {
+        return this.stack.peek();
+    }
+    
+    public int getMin() {
+        return this.minElement.peek();
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
