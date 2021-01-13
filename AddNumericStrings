@@ -1,0 +1,26 @@
+https://leetcode.com/problems/add-strings/submissions/
+
+class Solution {
+    public String addStrings(String num1, String num2) 
+    {
+        int i = num1.length()-1, j = num2.length()-1, carry = 0;
+        StringBuilder res = new StringBuilder();
+        
+        while(i >= 0 || j >= 0)
+        {
+            int x = (i >= 0)? Character.getNumericValue(num1.charAt(i)) : 0;
+            int y = (j >= 0)? Character.getNumericValue(num2.charAt(j)) : 0;
+            
+            int sum = x + y + carry;
+            
+            carry = sum/10;
+            sum = sum%10;
+            res.append(sum);
+            i--;
+            j--;
+        }
+        if(carry != 0)
+            res.append(carry);
+        return res.reverse().toString();
+    }
+}
