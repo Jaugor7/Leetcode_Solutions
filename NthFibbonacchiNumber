@@ -1,0 +1,25 @@
+
+https://leetcode.com/problems/fibonacci-number/submissions/
+
+class Solution {
+    int[] dp; 
+    public int fib(int n) 
+    {
+        dp = new int[n+1];
+        return recur(n);
+    }
+    public int recur(int n)
+    {            
+        if(n == 0)
+            return 0;
+        if(n == 1)
+            return 1;
+        if(n == 2)
+            return 1;
+        if(dp[n] != 0)
+            return dp[n];
+        
+        dp[n] = recur(n-1)+recur(n-2);
+        return dp[n];
+    }
+}
