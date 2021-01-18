@@ -1,0 +1,27 @@
+https://leetcode.com/problems/partition-labels/submissions/
+
+class Solution {
+    public List<Integer> partitionLabels(String S) 
+    {
+        List<Integer> res = new ArrayList<>();
+        int end = 0, start = 0;
+        HashMap<Character, Integer> hm = new HashMap<>();
+        
+        for(int i = 0; i < S.length(); i++)
+            hm.put(S.charAt(i), i);
+        
+        for(int i = 0; i < S.length(); i++)
+        {
+            if( hm.containsKey(S.charAt(i)) && hm.get(S.charAt(i)) > end )
+            {
+                end = hm.get(S.charAt(i));   
+            }
+             if(i == end)
+               {
+                   res.add(end-start+1);
+                   start = end+1;
+               }
+        }
+        return res;
+    }
+}

@@ -1,0 +1,23 @@
+class Solution {
+    List<List<Integer>> res;
+    public void combinationSumRecur(List<Integer>currentList ,int[] candidates, int target, int index)
+    {
+        if(index >= candidates.length || target <= 0)
+        {
+            if(target == 0)
+                res.add(new ArrayList<>(currentList));
+            
+            return;
+        }
+        currentList.add(candidates[index]);
+        combinationSumRecur(currentList, candidates, target-candidates[index], index);
+        currentList.remove(currentList.size()-1);
+        combinationSumRecur(currentList, candidates, target, index+1);
+    }
+    public List<List<Integer>> combinationSum(int[] candidates, int target) 
+    {
+        res = new ArrayList<>();
+        combinationSumRecur(new ArrayList<>(),candidates, target, 0);
+        return res;
+    }
+}
