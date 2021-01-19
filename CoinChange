@@ -1,0 +1,27 @@
+https://leetcode.com/problems/coin-change/submissions/
+
+class Solution {
+    public int recur(int[]coins, int amount, int index, int[][] dp)
+    {
+        if(amount <= 0 || index >= coins.length)
+        {
+            if(amount == 0)
+                return 0;
+            return 100001;
+        }
+        if(dp[index][amount] != 0)
+            return dp[index][amount];
+        
+        int n1 = recur(coins, amount, index+1, dp);
+        int n2 = recur(coins, amount-coins[index], index, dp);
+         
+        dp[index][amount] = Math.min(n1, n2+1);
+        return dp[index][amount];   
+    }
+    public int coinChange(int[] coins, int amount) 
+    {
+        int[][] dp = new int[coins.length+1][amount+1];
+        int res = recur(coins, amount, 0, dp);
+        return (res == 100001) ? -1 : res;
+    }
+}

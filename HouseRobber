@@ -1,0 +1,32 @@
+https://leetcode.com/problems/house-robber/submissions/
+
+class Solution {
+    public int recur(int[]nums, int index, int sum, HashMap<String, Integer> hm)
+    {
+        if(index >= nums.length)
+            return 0;
+        if(hm.containsKey(index+"-"+sum))
+            return hm.get(index+"-"+sum);
+        
+        int n1 = recur(nums, index+1, sum, hm);
+        int n2 = recur(nums, index+2, sum+nums[index], hm);
+        int n3 = recur(nums, index+3, sum+nums[index], hm);
+        int res = Math.max(n3, n2)+nums[index];
+        
+        hm.put(index+"-"+sum, Math.max(res, n1));
+        return hm.get(index+"-"+sum);
+    }
+    public int rob(int[] nums) {
+        if(nums.length == 0)
+            return 0;
+        else if(nums.length == 1)
+            return nums[0];
+        else if(nums.length == 2)
+            return Math.max(nums[0], nums[1]);
+        else
+        {
+            HashMap<String, Integer> hm = new HashMap<>();
+            return recur(nums, 0, 0, hm);
+        }
+    }
+}
