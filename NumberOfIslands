@@ -1,0 +1,39 @@
+https://leetcode.com/problems/number-of-islands/submissions/
+
+class Solution {
+    public int numIslands(char[][] grid) 
+    {
+        int countIsland = 0;
+        int m = grid.length;
+        
+        if(m == 0)
+            return 0;
+        int n = grid[0].length;
+        
+        for(int i=0; i < m; i++)
+        {
+            for(int j=0; j < n; j++)
+            {
+                if(grid[i][j] == '1')
+                {
+                    recur(grid, i, j, m, n);
+                    countIsland++;
+                }
+            }
+        }
+        return countIsland;
+    }
+    public void recur(char[][] grid, int x, int y, int m, int n)
+    {
+        if(x >= m || x < 0 || y >= n || y < 0|| grid[x][y] != '1')
+            return;
+        
+        grid[x][y] = '2';
+        
+        recur(grid, x+1, y, m, n);
+        recur(grid, x, y+1, m, n);
+        recur(grid, x-1, y, m, n);
+        recur(grid, x, y-1, m, n);
+    }
+    
+}

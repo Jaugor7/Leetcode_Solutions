@@ -1,0 +1,40 @@
+https://leetcode.com/problems/merge-intervals/submissions/
+
+class Solution {
+    public int[][] merge(int[][] intervals) 
+    {
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        if(intervals.length < 2)
+            return intervals;
+        List<List<Integer>> res = new ArrayList<>();
+        
+        int start = intervals[0][0], end = intervals[0][1];
+        
+        for(int i = 1; i < intervals.length; i++)
+        {
+            if(end >= intervals[i][0])
+                end = Math.max(end, intervals[i][1]);
+            else
+            {
+                List<Integer> temp = new ArrayList<>();
+                temp.add(start);
+                temp.add(end);
+                res.add(temp);
+                start = intervals[i][0];
+                end = intervals[i][1];
+            }
+        }
+        List<Integer> temp = new ArrayList<>();
+        temp.add(start);
+        temp.add(end);
+        res.add(temp);
+        
+        int output[][] = new int[res.size()][2];
+        for(int i=0 ; i < res.size(); i++)
+        {
+            output[i][0] = res.get(i).get(0);
+            output[i][1] = res.get(i).get(1);
+        }
+        return output;
+    }
+}
