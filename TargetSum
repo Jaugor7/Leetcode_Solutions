@@ -1,0 +1,27 @@
+https://leetcode.com/problems/target-sum/submissions/
+
+
+class Solution {
+    public int recur(int[] nums, int sum, int index, int S, int[][] dp)
+    {
+        if(index >= nums.length){
+            if(sum == S)
+                return 1;
+            else return 0;
+        }
+        
+        if(dp[index][sum+1000] != 0)
+            return dp[index][sum+1000];
+
+        dp[index][sum+1000] = recur(nums, sum+nums[index], index+1, S, dp)+recur(nums, sum-nums[index], index+1, S, dp);
+        
+        return dp[index][sum+1000];
+    }
+    public int findTargetSumWays(int[] nums, int S) 
+    {
+        if(nums.length == 0)
+            return 0;
+        int[][] dp = new int[nums.length+1][2001];
+        return recur(nums, 0, 0, S, dp);
+    }
+}
