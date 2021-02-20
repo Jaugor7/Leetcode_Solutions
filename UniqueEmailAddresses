@@ -1,0 +1,40 @@
+https://leetcode.com/problems/unique-email-addresses/submissions/
+
+class Solution {
+    
+    public String simplifyMail(String email)
+    {
+        String simplifiedMail = "";
+        
+        String[] parts = email.split("@", 2);
+        
+        String name = parts[0];
+        
+        
+        
+        for(int i = 0 ; i < name.length(); i++)
+        {
+            if(name.charAt(i) == '+')
+                break;
+            else if(name.charAt(i) == '.')
+                continue;
+            simplifiedMail += name.charAt(i);
+        }
+        
+        
+        return simplifiedMail+"after@"+parts[1];
+        
+    }
+    
+    public int numUniqueEmails(String[] emails) 
+    {
+        HashSet<String> hs = new HashSet<>();
+        
+        for(String email : emails)
+        {
+            hs.add(simplifyMail(email));
+        }
+        
+        return hs.size();
+    }
+}
