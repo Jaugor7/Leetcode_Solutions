@@ -1,0 +1,36 @@
+https://leetcode.com/problems/binary-tree-paths/submissions/
+
+
+class Solution {
+    List<String> res;
+    
+    public void recur(TreeNode root, String currPath)
+    {
+        if(root == null) return;
+        
+        if(currPath == "")
+            currPath += root.val;
+        else
+            currPath += "->"+root.val;
+        
+        if(root.left == null && root.right == null)
+        {
+            res.add(currPath);
+        }
+        else
+        {
+            recur(root.left, currPath);
+            recur(root.right, currPath);
+        }
+        // currPath.remove(currPath.size()-1);
+    }
+    
+    public List<String> binaryTreePaths(TreeNode root) 
+    {
+        res = new ArrayList<>();
+        if(root == null) return res;
+        
+        recur(root, "");
+        return res;
+    }
+}

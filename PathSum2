@@ -1,0 +1,37 @@
+https://leetcode.com/problems/path-sum-ii/submissions/
+
+class Solution {
+    List<List<Integer>> res;
+    
+    public void recur(TreeNode root, int sum, ArrayList<Integer> currPath)
+    {
+        if(root == null) return;
+        
+        currPath.add(root.val);
+        
+        if(root.left == null && root.right == null)
+        {
+            if(sum == root.val)
+                res.add(new ArrayList<>(currPath));
+            
+            currPath.remove(currPath.size()-1);
+            return;
+        }
+        recur(root.left, sum-root.val, currPath);
+        recur(root.right, sum-root.val, currPath);
+        
+        currPath.remove(currPath.size()-1);
+        
+    }
+    
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) 
+    {
+        res = new ArrayList<>();
+        
+        if(root == null)
+            return res;
+        
+        recur(root, targetSum, new ArrayList<Integer>());
+        return res;
+    }
+}

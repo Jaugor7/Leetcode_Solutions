@@ -1,0 +1,37 @@
+//https://leetcode.com/problems/path-sum-iii/submissions/
+
+class Solution {
+    int res;
+    int target;
+    Map<Integer, Integer> map;
+    
+    public void recur(TreeNode root, int currSum)
+    {
+        if(root == null) return;
+        
+        currSum += root.val;
+
+        if(map.containsKey(currSum-target))
+            res += map.get(currSum-target);
+        
+        map.put(currSum, map.getOrDefault(currSum, 0)+1);
+        
+        recur(root.left, currSum);
+        recur(root.right, currSum);
+        
+        map.put(currSum, map.get(currSum)-1);
+        if(map.get(currSum) == 0)
+            map.remove(currSum);
+    }
+    
+    public int pathSum(TreeNode root, int sum) 
+    {
+        res = 0;
+        target = sum;
+        map = new HashMap<>();
+        map.put(0,1);
+        recur(root, 0);
+        return res;
+    }
+    
+}
