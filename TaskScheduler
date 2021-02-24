@@ -1,0 +1,26 @@
+https://www.youtube.com/watch?v=vA86QFrXoho
+
+class Solution {
+    public int leastInterval(char[] tasks, int n) 
+    {
+        if(n == 0 ) return tasks.length;
+        if(tasks.length == 0) return 0;
+        
+        int[] count = new int[26];
+        for(char c: tasks)
+            count[c - 'A'] += 1;
+        
+        Arrays.sort(count); //Sort array in Ascending Order.
+        
+        int maxFreq = count[25];
+        int idleTime = (maxFreq-1)*n;  //Maximum idle time that can be present there.
+        
+        for(int i= 24; i >= 0; i-- )
+        {
+            idleTime -= Math.min(count[i], maxFreq-1);
+        }
+        
+        idleTime = Math.max(0, idleTime);
+        return idleTime+tasks.length;
+    }
+}
