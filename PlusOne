@@ -1,0 +1,34 @@
+https://leetcode.com/problems/plus-one/submissions/
+
+class Solution {
+    public int[] addCarryToStart(int carry, int[] digits)
+    {
+        int[] res = new int[digits.length+1];
+        for(int i = res.length-1; i > 0; i--)
+            res[i] = digits[i-1];
+        res[0] = carry;
+        return res;
+            
+    }
+    public int[] plusOne(int[] digits) {
+        int carry = 0;
+        
+        if(digits.length == 0)
+            return new int[] {1};
+        
+        for(int i = digits.length-1; i >= 0; i--)
+        {
+            int sum = digits[i] + carry;
+            
+            if(i == digits.length-1)
+                sum++;
+            
+            digits[i] = sum%10;
+            carry = sum/10;
+        }
+        
+        if(carry != 0)
+            return addCarryToStart(carry, digits);
+        return digits;
+    }
+}

@@ -1,0 +1,29 @@
+https://leetcode.com/problems/happy-number/submissions/
+
+
+class Solution {
+    public int findSquareSum(int n)
+    {
+        int res = 0;
+        while(n > 0)
+        {
+            res += Math.pow((n%10), 2);
+            n /= 10;
+        }
+        return res;
+    }
+    public boolean isHappy(int n) 
+    {
+        int slow = findSquareSum(n);
+        int fast = findSquareSum(findSquareSum(n));
+        
+        while(slow != fast)
+        {
+            slow = findSquareSum(slow);
+            fast = findSquareSum(findSquareSum(fast));
+        }
+        if(slow == 1)
+            return true;
+        return false;
+    }
+}

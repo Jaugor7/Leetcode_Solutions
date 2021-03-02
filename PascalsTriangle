@@ -1,0 +1,35 @@
+https://leetcode.com/problems/pascals-triangle/submissions/
+
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> output = new ArrayList<>();
+        
+        if(numRows == 0)
+          return output;
+        
+        List<Integer> aa = new ArrayList<>();
+        aa.add(1);
+        output.add(aa);
+        
+        if(numRows == 1)
+            return output;
+        
+        for(int i=1; i < numRows; i++)
+        {
+            List<Integer> temp = new ArrayList<>();
+            int a = 0, b = 1;
+            for(int j = 0; j <= i; j++)
+            {
+                temp.add(a+b);
+                a = b;
+                if(j+1 < output.get(output.size()-1).size())
+                    b = output.get(output.size()-1).get(j+1);
+                else
+                    b = 0;
+            }
+            output.add(temp);
+        }
+            
+        return output;
+    }
+}
