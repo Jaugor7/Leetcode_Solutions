@@ -1,0 +1,47 @@
+https://leetcode.com/problems/valid-palindrome/submissions/
+
+
+class Solution {
+    public boolean isPalindrome(String s) 
+    {
+        int n = s.length();
+        
+        if(n == 0 || n == 1)
+            return true;
+        int low = 0, high = n-1;
+        
+        while(low < high)
+        {
+            char start = s.charAt(low);
+            char end = s.charAt(high);
+            
+            if(Character.isLetter(start) || Character.isDigit(start))
+            {
+                start = Character.toLowerCase(start);
+            }
+            else
+            {
+                low++;
+                continue;
+            }
+            
+            if(Character.isLetter(end) || Character.isDigit(end))
+            {
+                end = Character.toLowerCase(end);
+            }
+            else
+            {
+                high--;
+                continue;
+            }
+            
+            if(start != end)
+                return false;
+            low++;
+            high--;
+            
+        }
+        
+        return true;
+    }
+}

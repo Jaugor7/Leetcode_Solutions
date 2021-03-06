@@ -1,0 +1,52 @@
+https://leetcode.com/explore/challenge/card/march-leetcoding-challenge-2021/588/week-1-march-1st-march-7th/3660/
+
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) 
+    {
+        if(headA == null || headB == null) return null;
+        
+        ListNode curr = headA, curr2 = null;
+        
+        int countA = 0;
+        
+        while(curr != null)
+        {
+            curr = curr.next;
+            countA++;
+        }
+        
+        int countB = 0;
+        curr = headB;
+        
+        while(curr != null)
+        {
+            curr = curr.next;
+            countB++;
+        }
+        
+        if(countA > countB)
+        {
+            curr = headA;
+            curr2 = headB;
+        }
+        else
+        {
+            curr = headB;
+            curr2 = headA;
+        }
+        
+        int pos = Math.abs(countA - countB);
+        
+        for(int i =0; i < pos; i++)
+            curr = curr.next;
+        
+        while(curr != curr2)
+        {
+            curr = curr.next;
+            curr2 = curr2.next;
+        }
+        
+        
+        return curr;
+    }
+}
