@@ -1,0 +1,83 @@
+https://leetcode.com/problems/design-a-stack-with-increment-operation/submissions/
+
+class Node{
+    int val;
+    Node next;
+    
+    public Node(int v)
+    {
+        val = v;
+        next = null;
+    }
+}
+
+class CustomStack {
+    int max;
+    int stackSize;
+    Node head;
+
+    public CustomStack(int maxSize) {
+        max = maxSize;
+        head = null;
+        stackSize = 0;
+    }
+    
+    public void push(int x) {
+        if(stackSize >= max) return;
+        
+        stackSize++;
+        
+        Node newNode = new Node(x);
+
+        if(head == null){
+            head = newNode;
+            return;
+        }
+
+        newNode.next = head;
+        head = newNode;
+    }
+    
+    public int pop() {
+        if(stackSize == 0 || head == null)return -1;
+        
+        stackSize--;
+        
+        int data = head.val;
+        head = head.next;
+        return data;
+    }
+    
+    public void increment(int k, int val) 
+    {
+        if(k >= stackSize)
+        {
+            Node curr = head;
+            while(curr != null)
+            {
+                curr.val += val;
+                curr = curr.next;
+            }
+        }
+        else
+        {
+            Node curr = head;
+            for(int i=0; i < stackSize - k; i++)
+                curr = curr.next;
+            
+            while(curr != null)
+            {
+                curr.val += val;
+                curr = curr.next;
+            }
+        }
+    }
+}
+
+/**
+ * Your CustomStack object will be instantiated and called as such:
+ * CustomStack obj = new CustomStack(maxSize);
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * obj.increment(k,val);
+ */
